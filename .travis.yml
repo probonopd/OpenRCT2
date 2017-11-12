@@ -38,7 +38,11 @@ script:
   - unset QTDIR; unset QT_PLUGIN_PATH ; unset LD_LIBRARY_PATH
   - export VERSION=$(git rev-parse --short HEAD) # linuxdeployqt uses this for naming the file
   - ./linuxdeployqt*.AppImage ./appdir/usr/share/applications/*.desktop -bundle-non-qt-libs
-  - ./linuxdeployqt*.AppImage ./appdir/usr/share/applications/*.desktop -appimage
+  - Workaround to increase compatibility with older systems; see https://github.com/darealshinji/AppImageKit-checkrt for details
+  - mkdir -p appdir/usr/optional/ ; cp /usr/lib/x86_64-linux-gnu/libstdc++.so.6 ./appdir/usr/optional/
+  - ( cd appdir ; rm AppRun ; wget https://github.com/darealshinji/AppImageKit-checkrt/releases/download/continuous/AppRun-patched-x86_64 -O AppRun ; chmod a+x AppRun)
+  - ./linuxdeployqt*.AppImage --appimage-extract
+  - ./squashfs-root/AppRun ./appdir/usr/share/applications/*.desktop -appimage
 
 after_success:
   - find ./appdir -executable -type f -exec ldd {} \; | grep " => /usr" | cut -d " " -f 2-3 | sort | uniq
