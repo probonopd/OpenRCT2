@@ -3,8 +3,23 @@ compiler: gcc
 sudo: require
 dist: trusty
 
-install:
-    - sudo apt-get -y install gcc cmake libsdl2-dev libsdl2-ttf-dev pkg-config libjansson-dev libspeex-dev libspeexdsp-dev libcurl4-openssl-dev libcrypto++-dev libfontconfig1-dev libfreetype6-dev libpng-dev libssl-dev libzip-dev
+# Workaround for: https://github.com/travis-ci/travis-ci/issues/8317
+addons:
+  apt:
+    packages:
+        - libsdl2-dev
+        - libsdl2-ttf-dev
+        - pkg-config
+        - libjansson-dev
+        - libspeex-dev
+        - libspeexdsp-dev
+        - libcurl4-openssl-dev
+        - libcrypto++-dev
+        - libfontconfig1-dev
+        - libfreetype6-dev
+        - libpng-dev
+        - libssl-dev
+        - libzip-dev
 
 script:
   - mkdir build ; cd build
