@@ -42,7 +42,7 @@ script:
   - mkdir -p appdir/usr/optional/ ; cp /usr/lib/x86_64-linux-gnu/libstdc++.so.6 ./appdir/usr/optional/
   - ( cd appdir ; rm AppRun ; wget https://github.com/darealshinji/AppImageKit-checkrt/releases/download/continuous/AppRun-patched-x86_64 -O AppRun ; chmod a+x AppRun)
   - ./linuxdeployqt*.AppImage --appimage-extract
-  - export PATH=$(readlink -f ./appdir/usr/bin):$PATH
+  - export PATH=$(readlink -f ./squashfs-root/usr/bin):$PATH
   - ./squashfs-root/usr/bin/appimagetool -g ./appdir/ OpenRCT2-$VERSION-x86_64.AppImage
 
 after_success:
