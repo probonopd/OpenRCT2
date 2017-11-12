@@ -23,7 +23,7 @@ addons:
 install:
   - sudo add-apt-repository -y ppa:jonathonf/php7.1
   - sudo apt-get -y update
-  - sudo apt-get -y libzip-dev # Workaround for: package 'libzip>=1.0' not found
+  - sudo apt-get -y install libzip-dev # Workaround for: package 'libzip>=1.0' not found
   
 script:
   - mkdir build ; cd build
